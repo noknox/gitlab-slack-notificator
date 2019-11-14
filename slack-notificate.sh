@@ -51,16 +51,7 @@ eval set -- "$ARGS"
 
 function send_slack_notification() {
   MESSAGE="$MESSAGE \n"
-  JSON='{"channel": "#'$SLACK_CHANNEL'", "attachments": [{"color": "'$MESSAGE_COLOR'", "blocks": [
-    {
-      "type": "section",
-			"fields": [
-        {
-					"type": "mrkdwn",
-					"text": "'$MESSAGE'"
-				}
-      ]
-    },
+  JSON='{"channel": "#'$SLACK_CHANNEL'", "text": "'$MESSAGE'", "attachments": [{"color": "'$MESSAGE_COLOR'", "blocks": [
 		{
 			"type": "section",
 			"fields": [
