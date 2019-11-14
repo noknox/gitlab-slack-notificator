@@ -9,4 +9,6 @@
 -o | --color = Color to attach in slack message  
 -m | --message = Message to send in the notification header
 
-The script will create a notification like this:
+The script will create a notification like this:  
+
+![Screenshot](gitlab-slack-notificator.jpg)
