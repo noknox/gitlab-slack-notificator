@@ -35,11 +35,23 @@ while (( "$#" )); do
   esac
 done
 
+case "$MESSAGE_COLOR" in
+  good)
+    MESSAGE_COLOR="#1CBF43"
+    ;;
+  warning)
+    MESSAGE_COLOR="#FBC02D"
+    ;;
+  danger)
+    MESSAGE_COLOR="#ED5C5C"
+    ;;
+esac
+
 eval set -- "$ARGS"
 
 function send_slack_notification() {
   MESSAGE="$MESSAGE \n"
-  JSON='{"channel": "#'$SLACK_CHANNEL'", "attachments": [{"color": "'$MESSAGE_COLOR'"}], "blocks": [
+  JSON='{"channel": "#'$SLACK_CHANNEL'", "attachments": [{"color": "'$MESSAGE_COLOR'", "blocks": [
     {
       "type": "section",
 			"fields": [
@@ -71,15 +83,21 @@ function send_slack_notification() {
 			]
 		},
     {
-      "type": "section",
-			"fields": [
-        {
-					"type": "mrkdwn",
-					"text": "*Pipeline:*\n<'$CI_PIPELINE_URL'|'$CI_PIPELINE_IID'>"
+      "type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": true,
+						"text": "Visit Pipeline"
+					},
+					"style": "primary",
+					"url": "'$CI_PIPELINE_URL'"
 				}
-      ]
+			]
     }
-	]}'
+	]}]}'
 
   curl -X POST -H 'Content-type: application/json' --data "$JSON" "$SLACK_WEBHOOK"
 }
