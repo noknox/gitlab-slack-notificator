@@ -72,22 +72,21 @@ function send_slack_notification() {
 					"text": "*Message:*\n'$CI_COMMIT_MESSAGE'"
 				}
 			]
-		},
+		}
+	]},
     {
-      "type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Visit Pipeline"
-					},
-					"style": "primary",
-					"url": "'$CI_PIPELINE_URL'"
-				}
-			]
+      "fallback": "Pipeline: '$CI_PIPELINE_URL'",
+      "color": "#1CBF43",
+      "actions": [
+        {
+          "type": "button",
+          "text": "Visit Pipeline",
+          "url": "'$CI_PIPELINE_URL'",
+          "style": "primary"
+        }
+      ]
     }
-	]}]}'
+  ]}'
 
   curl -X POST -H 'Content-type: application/json' --data "$JSON" "$SLACK_WEBHOOK"
 }
