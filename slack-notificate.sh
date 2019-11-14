@@ -89,7 +89,6 @@ function send_slack_notification() {
 					"type": "button",
 					"text": {
 						"type": "plain_text",
-						"emoji": true,
 						"text": "Visit Pipeline"
 					},
 					"style": "primary",
