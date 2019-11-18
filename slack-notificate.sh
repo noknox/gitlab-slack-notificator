@@ -2,7 +2,7 @@
 
 ARGS=""
 
-while (( "$#" )); do
+while [[ "$#" -ge 8 ]]; do
   case "$1" in
     -s|--slack_hook)
       SLACK_WEBHOOK=$2
